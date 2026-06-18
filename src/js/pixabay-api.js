@@ -15,8 +15,9 @@ export async function getImagesByQuery(query) {
         safesearch: true,
     });
     
-    const response = await axios.get(`?${searchParams}`);
-    return response.data;
+    const data = (await axios.get(`?${searchParams}`)).data;
+    
+    return data;
     
     // return axios.get(`?${searchParams}`).then(response => response.data);
 }

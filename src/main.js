@@ -10,7 +10,7 @@ const elemGallary = document.querySelector('ul.gallery');
 
 // Pixabay
 const form = document.querySelector('.form');
-    form.addEventListener('submit', (e) => { 
+    form.addEventListener('submit', async (e) => { 
         e.preventDefault(); 
         clearGallery(elemGallary);
         showLoader();
@@ -28,28 +28,50 @@ const form = document.querySelector('.form');
                     maxWidth:500});          
             // return;        
         }
-        getImagesByQuery(searchText)
-            .then(data => {
-                const marray = data.hits;
-                if (marray.length !== 0 ) {
-                    // console.log(marray.length);
-                    createGallery(marray,elemGallary);               
-                } else {                               
-                    iziToast.show({
-                    title: 'Error',
-                    message: `Sorry, there are no images matching your search query. Please try again!`,
-                    backgroundColor: '#EF4040',
-                    position:'topRight',
-                    radius: 35,
-                    maxWidth:500}); 
-                }     
-            })
-            .catch(err => iziToast.error({
-                    title: 'Error',
-                    message: `${err}`,
-                    backgroundColor: '#efdb40',
-                    position:'topRight',
-                    radius: 35,
-                    maxWidth:500})).finally(() => hideLoader());
+        try{
+        const mdata = await getImagesByQuery(searchText);
+        // console.log(mdata.hits);
+        const marray = mdata.hits;
+        if (marray.length !== 0 ) {
+            // console.log(marray.length);
+             createGallery(marray,elemGallary);               
+         } else {                               
+            iziToast.show({
+            title: 'Error',
+            message: `Sorry, there are no images matching your search query. Please try again!`,
+            backgroundColor: '#EF4040',
+            position:'topRight',
+            radius: 35,
+            maxWidth:500}); 
+        } 
+        }catch{
+
+        }finally{
+          hideLoader();  
+        }  
+
+        // getImagesByQuery(searchText)
+        //     .then(data => {
+        //         const marray = data.hits;
+        //         if (marray.length !== 0 ) {
+        //             // console.log(marray.length);
+        //             createGallery(marray,elemGallary);               
+        //         } else {                               
+        //             iziToast.show({
+        //             title: 'Error',
+        //             message: `Sorry, there are no images matching your search query. Please try again!`,
+        //             backgroundColor: '#EF4040',
+        //             position:'topRight',
+        //             radius: 35,
+        //             maxWidth:500}); 
+        //         }     
+        //     })
+        //     .catch(err => iziToast.error({
+        //             title: 'Error',
+        //             message: `${err}`,
+        //             backgroundColor: '#efdb40',
+        //             position:'topRight',
+        //             radius: 35,
+        //             maxWidth:500})).finally(() => hideLoader());
     });
 
