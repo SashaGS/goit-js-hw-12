@@ -10,6 +10,7 @@ let  gallery = new SimpleLightbox('.gallery a',{
    });  
 
 const loader = document.querySelector('.loader');
+const btnShowMore = document.querySelector('.btn-showmore-js');
 
 export function createGallery(images,elemGalary) { 
     const markup = imagesTamplate(images); 
@@ -78,6 +79,14 @@ export function hideLoader() {
     }
 }
 
-export function showLoadMoreButton(){}
+export function showLoadMoreButton(){
+    if(btnShowMore){
+        btnShowMore.classList.remove('hidden-shmore');
+    }
+}
 
-export function hideLoadMoreButton(){}
+export function hideLoadMoreButton(){
+    if(btnShowMore){
+        btnShowMore.classList.add('hidden-shmore');
+    }
+}
