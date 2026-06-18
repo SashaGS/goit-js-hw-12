@@ -46,8 +46,26 @@
 .btn-js:hover{
   background-color: #6C8CFF;
 }
+
+.btn-showmore-js{
+  background-color: #4E75FF;
+  border-radius: 4px;
+  color:#FFFFFF ;
+  margin: 16px auto;
+}
+
+.btn-showmore-js:hover{
+   background-color: #6C8CFF;
+}
+
+.hidden-shmore {
+  display: none;
+}
+
 .container{
   margin: 36px auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .gallery{
