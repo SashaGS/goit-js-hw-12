@@ -1,0 +1,7 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - textbox [ref=e5]:
+      - /placeholder: Search images...
+    - button "Search" [ref=e6] [cursor=pointer]
+  - generic:
+    - list

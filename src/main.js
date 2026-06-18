@@ -14,6 +14,7 @@ let searchTextOld, page=1;
 const form = document.querySelector('.form');
     form.addEventListener('submit', async (e) => { 
         e.preventDefault(); 
+        hideLoadMoreButton();
         clearGallery(elemGallary);
         showLoader();
         
@@ -44,7 +45,7 @@ const form = document.querySelector('.form');
         const marray = mdata.hits;
         if (marray.length !== 0 ) {
             // console.log(marray.length);
-             hideLoadMoreButton();
+            //  hideLoadMoreButton();
              createGallery(marray,elemGallary); 
              showLoadMoreButton();              
          } else {                               
