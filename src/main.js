@@ -6,6 +6,7 @@ import "izitoast/dist/css/iziToast.min.css";
 
 
 const elemGallary = document.querySelector('ul.gallery');
+let searchTextOld, page=1;
 
 
 // Pixabay
@@ -14,22 +15,30 @@ const form = document.querySelector('.form');
         e.preventDefault(); 
         clearGallery(elemGallary);
         showLoader();
-        // setTimeout(() => {
+        
         const formData = new FormData(form);
         const searchText = formData.get('search-text').trim();
+
+        if (searchText !== searchTextOld) {
+            searchTextOld = searchText;
+             page=1;
+        }else{
+            page+=1; 
+            console.log(page);   
+        }
+
         if (searchText.length === 0) {
-        //    hideLoader(); 
-           iziToast.show({
-                    title: 'Error',
-                    message: `Empty search field`,
-                    backgroundColor: '#c4501b',
-                    position:'topRight',
-                    radius: 35,
-                    maxWidth:500});          
-            // return;        
+            iziToast.show({
+            title: 'Error',
+            message: `Empty search field`,
+            backgroundColor: '#c4501b',
+            position:'topRight',
+            radius: 35,
+            maxWidth:500});          
+                   
         }
         try{
-        const mdata = await getImagesByQuery(searchText);
+        const mdata = await getImagesByQuery(searchText,page);
         // console.log(mdata.hits);
         const marray = mdata.hits;
         if (marray.length !== 0 ) {
@@ -44,7 +53,14 @@ const form = document.querySelector('.form');
             radius: 35,
             maxWidth:500}); 
         } 
-        }catch{
+        }catch(error){
+            iziToast.error({
+            title: 'Error',
+            message: `${error}`,
+            backgroundColor: '#efdb40',
+            position:'topRight',
+            radius: 35,
+            maxWidth:500}); 
 
         }finally{
           hideLoader();  
