@@ -6,9 +6,12 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
-const elemGallary = document.querySelector('ul.gallery');
-let searchTextOld, page=1;
+ const elemGallary = document.querySelector('ul.gallery>.n');
 
+
+let searchTextOld;
+let page=1;
+let searchText;
 
 // Pixabay
 const form = document.querySelector('.form');
@@ -23,7 +26,7 @@ const form = document.querySelector('.form');
 
         if (searchText !== searchTextOld) {
             searchTextOld = searchText;
-             page=1;
+             page;
         }else{
             page+=1; 
             console.log(page);   
@@ -39,6 +42,7 @@ const form = document.querySelector('.form');
             maxWidth:500});          
                    
         }
+
         try{
         const mdata = await getImagesByQuery(searchText,page);
         // console.log(mdata.hits);
@@ -69,29 +73,11 @@ const form = document.querySelector('.form');
         }finally{
           hideLoader();  
         }  
-
-        // getImagesByQuery(searchText)
-        //     .then(data => {
-        //         const marray = data.hits;
-        //         if (marray.length !== 0 ) {
-        //             // console.log(marray.length);
-        //             createGallery(marray,elemGallary);               
-        //         } else {                               
-        //             iziToast.show({
-        //             title: 'Error',
-        //             message: `Sorry, there are no images matching your search query. Please try again!`,
-        //             backgroundColor: '#EF4040',
-        //             position:'topRight',
-        //             radius: 35,
-        //             maxWidth:500}); 
-        //         }     
-        //     })
-        //     .catch(err => iziToast.error({
-        //             title: 'Error',
-        //             message: `${err}`,
-        //             backgroundColor: '#efdb40',
-        //             position:'topRight',
-        //             radius: 35,
-        //             maxWidth:500})).finally(() => hideLoader());
     });
 
+
+    const btnShowmore = document.querySelector('.btn-showmore-js')
+    // console.log(btnShowmore);
+    btnShowmore.addEventListener('click',()=>{
+
+    });

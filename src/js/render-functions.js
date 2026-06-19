@@ -14,7 +14,8 @@ const btnShowMore = document.querySelector('.btn-showmore-js');
 
 export function createGallery(images,elemGalary) { 
     const markup = imagesTamplate(images); 
-    elemGalary.innerHTML = markup;
+    // elemGalary.innerHTML = markup;
+    elemGalary.insertAdjacentHTML('afterend',markup);
     gallery.refresh();
 }
 
@@ -58,11 +59,6 @@ function imagesTamplate(images) {
 
 export function clearGallery(elemGalary){
     elemGalary.innerHTML = '';
-    // if (gallery !== undefined) {
-    //     gallery.destroy();
-    //     // console.log(gallery);
-    // } 
-    
 };
 
 
