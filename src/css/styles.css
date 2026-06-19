@@ -75,6 +75,10 @@
   gap: 24px;
 }
 
+ul li:last-child {
+  display: none;
+}
+
 .gallery-item{
   position: relative;
   width:calc((100% - 48px)/4);

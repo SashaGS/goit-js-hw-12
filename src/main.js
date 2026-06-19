@@ -6,7 +6,7 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
- const elemGallary = document.querySelector('ul.gallery>.n');
+ const elemGallary = document.querySelector('ul.gallery>li');
 
 
 let searchTextOld;
@@ -26,7 +26,7 @@ const form = document.querySelector('.form');
 
         if (searchText !== searchTextOld) {
             searchTextOld = searchText;
-             page;
+            page;
         }else{
             page+=1; 
             console.log(page);   

@@ -15,7 +15,8 @@ const btnShowMore = document.querySelector('.btn-showmore-js');
 export function createGallery(images,elemGalary) { 
     const markup = imagesTamplate(images); 
     // elemGalary.innerHTML = markup;
-    elemGalary.insertAdjacentHTML('afterend',markup);
+    // elemGalary.insertAdjacentHTML('afterend',markup);
+    elemGalary.insertAdjacentHTML('beforebegin',markup);
     gallery.refresh();
 }
 
