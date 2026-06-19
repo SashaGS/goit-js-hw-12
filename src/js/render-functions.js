@@ -60,6 +60,20 @@ function imagesTamplate(images) {
 
 export function clearGallery(elemGalary){
     elemGalary.innerHTML = '';
+    // const list = document.querySelector('ul.gallery');
+    // const li = document.createElement("li");
+    // li.classList.add('gallery-item');
+    // list.appendChild(li);
+
+    // const nextSibling = elemGalary.nextElementSibling;
+    // console.log(nextSibling.nextElementSibling);
+    // while (nextSibling .tagName === 'li') {
+    //     nextSibling.remove();
+    // }
+    // const ul = document.querySelector('ul');
+   //    elemGalary.replaceChildren(elemGalary); 
+//    elemGalary.innerHTML = '';
+
 };
 
 

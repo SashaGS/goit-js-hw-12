@@ -7,26 +7,71 @@ import "izitoast/dist/css/iziToast.min.css";
 
 
  const elemGallary = document.querySelector('ul.gallery>li');
-
+ const elemGallaryForClear = document.querySelector('ul');
 
 let searchTextOld;
-let page=1;
 let searchText;
+let page,formData;
+
 
 // Pixabay
 const form = document.querySelector('.form');
-    form.addEventListener('submit', async (e) => { 
+    form.addEventListener('submit',(e) => { 
         e.preventDefault(); 
         hideLoadMoreButton();
         clearGallery(elemGallary);
         showLoader();
+        // console.log(elemGallary);
         
+        // const formData = new FormData(form);
+        // const searchText = formData.get('search-text').trim();
+        // window.searchText = searchText;
+        // if (searchText !== searchTextOld) {
+        //     searchTextOld = searchText;
+        //     page;
+        // }else{
+        //     page+=1; 
+        //     console.log(page);   
+        // }
+
+        // if (searchText.length === 0) {
+        //     iziToast.show({
+        //     title: 'Error',
+        //     message: `Empty search field`,
+        //     backgroundColor: '#c4501b',
+        //     position:'topRight',
+        //     radius: 35,
+        //     maxWidth:500});          
+                   
+        // }
+        // showGallary(searchText);
+        showGallary();
+    });
+
+
+    const btnShowmore = document.querySelector('.btn-showmore-js')
+    // console.log(btnShowmore);
+    btnShowmore.addEventListener('click',(e)=>{
+        e.preventDefault();
+        // console.log(window.searchText);
+        //  console.log(formData);
+        // const formData = new FormData(form); 
+        // const searchText = formData.get('search-text').trim();
+       
+        showGallary();
+    });
+
+
+    async function showGallary(){
         const formData = new FormData(form);
         const searchText = formData.get('search-text').trim();
-
+        
         if (searchText !== searchTextOld) {
+            console.log(searchText);
+            console.log(searchTextOld);
+            // clearGallery(elemGallaryForClear);
             searchTextOld = searchText;
-            page;
+            page=1;
         }else{
             page+=1; 
             console.log(page);   
@@ -43,12 +88,13 @@ const form = document.querySelector('.form');
                    
         }
 
-        try{
+        try
+        {
         const mdata = await getImagesByQuery(searchText,page);
         // console.log(mdata.hits);
         const marray = mdata.hits;
         if (marray.length !== 0 ) {
-            // console.log(marray.length);
+            console.log(elemGallary);
             //  hideLoadMoreButton();
              createGallery(marray,elemGallary); 
              showLoadMoreButton();              
@@ -60,8 +106,8 @@ const form = document.querySelector('.form');
             position:'topRight',
             radius: 35,
             maxWidth:500}); 
-        } 
-        }catch(error){
+        }
+    }catch(error){
             iziToast.error({
             title: 'Error',
             message: `${error}`,
@@ -73,11 +119,4 @@ const form = document.querySelector('.form');
         }finally{
           hideLoader();  
         }  
-    });
-
-
-    const btnShowmore = document.querySelector('.btn-showmore-js')
-    // console.log(btnShowmore);
-    btnShowmore.addEventListener('click',()=>{
-
-    });
+    }
