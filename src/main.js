@@ -6,12 +6,14 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
- const elemGallary = document.querySelector('ul.gallery>li');
- const elemGallaryForClear = document.querySelector('ul');
+const elemGallary = document.querySelector('ul.gallery');
+
 
 let searchTextOld;
-let searchText;
-let page,formData;
+let searchText; 
+let page;
+let totalPages;
+const PER_PAGES = 15;
 
 
 // Pixabay
@@ -23,59 +25,9 @@ const form = document.querySelector('.form');
         showLoader();
         // console.log(elemGallary);
         
-        // const formData = new FormData(form);
-        // const searchText = formData.get('search-text').trim();
-        // window.searchText = searchText;
-        // if (searchText !== searchTextOld) {
-        //     searchTextOld = searchText;
-        //     page;
-        // }else{
-        //     page+=1; 
-        //     console.log(page);   
-        // }
-
-        // if (searchText.length === 0) {
-        //     iziToast.show({
-        //     title: 'Error',
-        //     message: `Empty search field`,
-        //     backgroundColor: '#c4501b',
-        //     position:'topRight',
-        //     radius: 35,
-        //     maxWidth:500});          
-                   
-        // }
-        // showGallary(searchText);
-        showGallary();
-    });
-
-
-    const btnShowmore = document.querySelector('.btn-showmore-js')
-    // console.log(btnShowmore);
-    btnShowmore.addEventListener('click',(e)=>{
-        e.preventDefault();
-        // console.log(window.searchText);
-        //  console.log(formData);
-        // const formData = new FormData(form); 
-        // const searchText = formData.get('search-text').trim();
-       
-        showGallary();
-    });
-
-
-    async function showGallary(){
-        const formData = new FormData(form);
-        const searchText = formData.get('search-text').trim();
-        
-        if (searchText !== searchTextOld) {
-            console.log(searchText);
-            console.log(searchTextOld);
-            // clearGallery(elemGallaryForClear);
-            searchTextOld = searchText;
-            page=1;
-        }else{
-            page+=1; 
-            console.log(page);   
-        }
+        const formData = new FormData(e.target);
+        searchText = formData.get('search-text').trim();
+        page = 1;
 
         if (searchText.length === 0) {
             iziToast.show({
@@ -84,20 +36,41 @@ const form = document.querySelector('.form');
             backgroundColor: '#c4501b',
             position:'topRight',
             radius: 35,
-            maxWidth:500});          
-                   
+            maxWidth:500});                        
         }
+        // showGallary(searchText);
+        showGallary(searchText);
+        e.target.reset();
+    });
 
+
+    const btnShowmore = document.querySelector('.btn-showmore-js')
+    // console.log(btnShowmore);
+    btnShowmore.addEventListener('click',(e)=>{
+        e.preventDefault();
+        showGallary(searchText);
+    });
+
+
+    async function showGallary(searchText){ 
+       
         try
         {
-        const mdata = await getImagesByQuery(searchText,page);
-        // console.log(mdata.hits);
+        const mdata = await getImagesByQuery(searchText, page);
+        
         const marray = mdata.hits;
-        if (marray.length !== 0 ) {
-            console.log(elemGallary);
+            if (marray.length !== 0) {
+            const totalResult = mdata.total; 
+            totalPages = Math.ceil(totalResult/PER_PAGES);    
+            console.log(totalPages);
+            // console.log(elemGallary);
             //  hideLoadMoreButton();
-             createGallery(marray,elemGallary); 
-             showLoadMoreButton();              
+            createGallery(marray, elemGallary); 
+            updateStusBtn();  
+            console.log(page);   
+            page += 1;
+            // showLoadMoreButton(); 
+               
          } else {                               
             iziToast.show({
             title: 'Error',
@@ -119,4 +92,22 @@ const form = document.querySelector('.form');
         }finally{
           hideLoader();  
         }  
+}
+    
+
+function updateStusBtn() { 
+    if (page < totalPages) {
+        console.log(totalPages);
+        showLoadMoreButton();
+    } else { 
+        hideLoadMoreButton();
+}    
+
+
+}
+function updateObserverStatus() { 
+    if (condition) {
+        
     }
+
+}
