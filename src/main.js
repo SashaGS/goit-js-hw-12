@@ -18,7 +18,7 @@ let totalPages;
 const PER_PAGES = 15;
 let sizeElemImg;
 let elemImg;
-let rect;
+let rect, sum;
 
 
 // Pixabay
@@ -28,8 +28,7 @@ const form = document.querySelector('.form');
         hideLoadMoreButton();
         clearGallery(elemGallary);
         showLoader();
-        // console.log(elemGallary);
-        
+       
         const formData = new FormData(e.target);
         searchText = formData.get('search-text').trim();
         page = 1;
@@ -45,12 +44,7 @@ const form = document.querySelector('.form');
         }
         await showGallary(searchText);
 
-        // e.target.reset();
-        elemImg = document.querySelector('ul.gallery > li.gallery-item');
-        rect = elemImg.getBoundingClientRect();
-        // window.scrollBy(0, - recty);
-        // console.log(recty * 2);
-         e.target.reset();
+        e.target.reset();
     });
 
 
@@ -60,11 +54,23 @@ const form = document.querySelector('.form');
         e.preventDefault();
         hideLoadMoreButton();
         showLoader();
-        // window.scrollBy(0, rect.y);
+
         await showGallary(searchText); 
 
-        window.scrollBy({ top: rect.y * 4, behavior: "smooth" });
-        console.log(rect.y * 3);
+       // After new images are added, recalc rect
+        elemImg = document.querySelector('ul.gallery > li.gallery-item:nth-last-child(2)');
+        
+         if (elemImg) {
+            let rect = elemImg.getBoundingClientRect();
+            sum = rect.height * 2;
+            
+            // console.log(sum);
+            window.scrollBy({
+            top: sum,
+            left: 0,
+            behavior: "smooth"
+            });
+         }
     });
 
 
@@ -108,7 +114,7 @@ const form = document.querySelector('.form');
 
 function updateStusBtn() { 
     if (page < totalPages) {
-        console.log(totalPages);
+        // console.log(totalPages);
         showLoadMoreButton();
     } else { 
         hideLoadMoreButton();
