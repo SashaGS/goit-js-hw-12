@@ -1,24 +1,19 @@
 import { getImagesByQuery } from './js/pixabay-api.js';
 import { createGallery, clearGallery, showLoader, hideLoader,
-                                showLoadMoreButton,hideLoadMoreButton } from './js/render-functions.js';
+                                 showLoadMoreButton,hideLoadMoreButton, scrollToNextGroup } from './js/render-functions.js';
 
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
 const elemGallary = document.querySelector('ul.gallery');
-// const elemImg1 = document.querySelector('ul.gallery>li.gallery-item');
-// console.log(elemImg1);
 
 
 // let searchTextOld;
-let searchText; 
+let searchText;
 let page;
 let totalPages;
 const PER_PAGES = 15;
-// let sizeElemImg;
-let elemImg;
-let sum;
 
 
 // Pixabay
@@ -44,44 +39,20 @@ const form = document.querySelector('.form');
             return;                    
         }
         await showGallary(searchText);
-
-         if (elemImg) {
-            elemImg = document.querySelector('ul.gallery > li.gallery-item:nth-last-child(2)');
-            console.log(elemImg);
-
-            const rect = elemImg.getBoundingClientRect();
-            sum = Math.ceil(rect["height"] * 2);
-  
-         }
-
+        // elemImg = document.querySelector('ul.gallery > li.gallery-item');
         e.target.reset();
     });
 
 
     const btnShowmore = document.querySelector('.btn-showmore-js')
     
-    btnShowmore.addEventListener('click',async (e)=>{
+btnShowmore.addEventListener('click', async (e) => {
         e.preventDefault();
         hideLoadMoreButton();
         showLoader();
 
-        await showGallary(searchText); 
-
-       // After new images are added, recalc rect
-        // elemImg = document.querySelector('ul.gallery > li.gallery-item:nth-last-child(2)');
-        // console.log(elemImg);
-        //  if (elemImg) {
-        //     const rect = elemImg.getBoundingClientRect();
-        //     sum = Math.ceil(rect["height"] * 2);
-            
-            // console.log(sum);
-            window.scrollBy({
-            top: sum,
-            left: 0,
-            behavior: "smooth"
-            });
-            console.log(Number(sum));
-        //  }
+        await showGallary(searchText);
+        scrollToNextGroup();
     });
 
 

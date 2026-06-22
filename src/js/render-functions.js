@@ -12,10 +12,19 @@ let  gallery = new SimpleLightbox('.gallery a',{
 const loader = document.querySelector('.loader');
 const btnShowMore = document.querySelector('.btn-showmore-js');
 
-export function createGallery(images,elemGalary) { 
-    const markup = imagesTamplate(images); 
+export function createGallery(images, elemGalary) {
+    const markup = imagesTamplate(images);
     elemGalary.insertAdjacentHTML('beforeend', markup);
     gallery.refresh();
+}
+
+export function scrollToNextGroup() {
+    const elemImg = document.querySelector('ul.gallery > li.gallery-item');
+    if (elemImg) {
+        const rect = elemImg.getBoundingClientRect();
+        const cardHeight = rect.height;
+        window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
+    }
 }
 
 
