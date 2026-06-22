@@ -1,6 +1,6 @@
 import { getImagesByQuery } from './js/pixabay-api.js';
 import { createGallery, clearGallery, showLoader, hideLoader,
-                                      showLoadMoreButton,hideLoadMoreButton } from './js/render-functions.js';
+                                showLoadMoreButton,hideLoadMoreButton } from './js/render-functions.js';
 
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
@@ -38,16 +38,17 @@ const form = document.querySelector('.form');
             radius: 35,
             maxWidth:500});                        
         }
-        // showGallary(searchText);
         showGallary(searchText);
         e.target.reset();
     });
 
 
     const btnShowmore = document.querySelector('.btn-showmore-js')
-    // console.log(btnShowmore);
+    
     btnShowmore.addEventListener('click',(e)=>{
         e.preventDefault();
+        hideLoadMoreButton();
+        showLoader();
         showGallary(searchText);
     });
 
@@ -59,18 +60,13 @@ const form = document.querySelector('.form');
         const mdata = await getImagesByQuery(searchText, page);
         
         const marray = mdata.hits;
-            if (marray.length !== 0) {
+        if (marray.length !== 0) {
             const totalResult = mdata.total; 
             totalPages = Math.ceil(totalResult/PER_PAGES);    
-            console.log(totalPages);
-            // console.log(elemGallary);
-            //  hideLoadMoreButton();
             createGallery(marray, elemGallary); 
-            updateStusBtn();  
-            console.log(page);   
+            updateStusBtn();   
             page += 1;
-            // showLoadMoreButton(); 
-               
+             
          } else {                               
             iziToast.show({
             title: 'Error',
@@ -101,10 +97,17 @@ function updateStusBtn() {
         showLoadMoreButton();
     } else { 
         hideLoadMoreButton();
-}    
-
-
+        iziToast.show({
+            title: 'message',
+            message: `We're sorry, but you've reached the end of search results.`,
+            backgroundColor: '#abee8b',
+            position:'topRight',
+            radius: 35,
+            maxWidth:500});
+    }    
 }
+
+
 function updateObserverStatus() { 
     if (condition) {
         
