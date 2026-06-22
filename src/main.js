@@ -11,14 +11,14 @@ const elemGallary = document.querySelector('ul.gallery');
 // console.log(elemImg1);
 
 
-let searchTextOld;
+// let searchTextOld;
 let searchText; 
 let page;
 let totalPages;
 const PER_PAGES = 15;
-let sizeElemImg;
+// let sizeElemImg;
 let elemImg;
-let rect, sum;
+let sum;
 
 
 // Pixabay
@@ -40,9 +40,19 @@ const form = document.querySelector('.form');
             backgroundColor: '#c4501b',
             position:'topRight',
             radius: 35,
-            maxWidth:500});                        
+            maxWidth:500});    
+            return;                    
         }
         await showGallary(searchText);
+
+         if (elemImg) {
+            elemImg = document.querySelector('ul.gallery > li.gallery-item:nth-last-child(2)');
+            console.log(elemImg);
+
+            const rect = elemImg.getBoundingClientRect();
+            sum = Math.ceil(rect["height"] * 2);
+  
+         }
 
         e.target.reset();
     });
@@ -58,11 +68,11 @@ const form = document.querySelector('.form');
         await showGallary(searchText); 
 
        // After new images are added, recalc rect
-        elemImg = document.querySelector('ul.gallery > li.gallery-item:nth-last-child(2)');
-        
-         if (elemImg) {
-            let rect = elemImg.getBoundingClientRect();
-            sum = rect.height * 2;
+        // elemImg = document.querySelector('ul.gallery > li.gallery-item:nth-last-child(2)');
+        // console.log(elemImg);
+        //  if (elemImg) {
+        //     const rect = elemImg.getBoundingClientRect();
+        //     sum = Math.ceil(rect["height"] * 2);
             
             // console.log(sum);
             window.scrollBy({
@@ -70,7 +80,8 @@ const form = document.querySelector('.form');
             left: 0,
             behavior: "smooth"
             });
-         }
+            console.log(Number(sum));
+        //  }
     });
 
 
@@ -85,7 +96,7 @@ const form = document.querySelector('.form');
             const totalResult = mdata.total; 
             totalPages = Math.ceil(totalResult/PER_PAGES);    
             createGallery(marray, elemGallary); 
-            updateStusBtn();   
+            updateStatusBtn();   
             page += 1;
              
          } else {                               
@@ -112,7 +123,7 @@ const form = document.querySelector('.form');
 }
     
 
-function updateStusBtn() { 
+function updateStatusBtn() { 
     if (page < totalPages) {
         // console.log(totalPages);
         showLoadMoreButton();
@@ -129,9 +140,9 @@ function updateStusBtn() {
 }
 
 
-function updateObserverStatus() { 
-    if (condition) {
+// function updateObserverStatus() { 
+//     if (condition) {
         
-    }
+//     }
 
-}
+// }
