@@ -7,6 +7,8 @@ import "izitoast/dist/css/iziToast.min.css";
 
 
 const elemGallary = document.querySelector('ul.gallery');
+// const elemImg1 = document.querySelector('ul.gallery>li.gallery-item');
+// console.log(elemImg1);
 
 
 let searchTextOld;
@@ -14,11 +16,14 @@ let searchText;
 let page;
 let totalPages;
 const PER_PAGES = 15;
+let sizeElemImg;
+let elemImg;
+let rect;
 
 
 // Pixabay
 const form = document.querySelector('.form');
-    form.addEventListener('submit',(e) => { 
+    form.addEventListener('submit', async (e) => { 
         e.preventDefault(); 
         hideLoadMoreButton();
         clearGallery(elemGallary);
@@ -38,18 +43,28 @@ const form = document.querySelector('.form');
             radius: 35,
             maxWidth:500});                        
         }
-        showGallary(searchText);
-        e.target.reset();
+        await showGallary(searchText);
+
+        // e.target.reset();
+        elemImg = document.querySelector('ul.gallery > li.gallery-item');
+        rect = elemImg.getBoundingClientRect();
+        // window.scrollBy(0, - recty);
+        // console.log(recty * 2);
+         e.target.reset();
     });
 
 
     const btnShowmore = document.querySelector('.btn-showmore-js')
     
-    btnShowmore.addEventListener('click',(e)=>{
+    btnShowmore.addEventListener('click',async (e)=>{
         e.preventDefault();
         hideLoadMoreButton();
         showLoader();
-        showGallary(searchText);
+        // window.scrollBy(0, rect.y);
+        await showGallary(searchText); 
+
+        window.scrollBy({ top: rect.y * 4, behavior: "smooth" });
+        console.log(rect.y * 3);
     });
 
 
