@@ -18,15 +18,15 @@ export function createGallery(images, elemGalary) {
     gallery.refresh();
 }
 
-export function scrollToNextGroup() {
-    const elemImg = document.querySelector('ul.gallery > li.gallery-item');
-    if (elemImg) {
-        const rect = elemImg.getBoundingClientRect();
-        const cardHeight = rect.height *2;
-        console.log(cardHeight + rect.y*(-1));
-        window.scrollBy({ top:(cardHeight + rect.y*(-1)), behavior: 'smooth' });
-    }
-}
+// export function scrollToNextGroup() {
+//     const elemImg = document.querySelector('ul.gallery > li.gallery-item');
+//     if (elemImg) {
+//         const rect = elemImg.getBoundingClientRect();
+//         const cardHeight = rect.height *2;
+//         console.log(cardHeight + rect.y*(-1));
+//         window.scrollBy({ top:(cardHeight + rect.y*(-1)), behavior: 'smooth' });
+//     }
+// }
 
 
 function imageTamplate(image) { 

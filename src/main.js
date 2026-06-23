@@ -1,6 +1,6 @@
 import { getImagesByQuery } from './js/pixabay-api.js';
 import { createGallery, clearGallery, showLoader, hideLoader,
-                                 showLoadMoreButton,hideLoadMoreButton, scrollToNextGroup } from './js/render-functions.js';
+                                 showLoadMoreButton,hideLoadMoreButton } from './js/render-functions.js';
 
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
@@ -11,7 +11,7 @@ const elemGallary = document.querySelector('ul.gallery');
 
 // let searchTextOld;
 let searchText;
-let page;
+let page =1;
 let totalPages;
 const PER_PAGES = 15;
 
@@ -26,7 +26,7 @@ const form = document.querySelector('.form');
        
         const formData = new FormData(e.target);
         searchText = formData.get('search-text').trim();
-        page = 1;
+        // page = 1;
 
         if (searchText.length === 0) {
             iziToast.show({
@@ -108,6 +108,17 @@ function updateStatusBtn() {
             radius: 35,
             maxWidth:500});
     }    
+}
+
+
+function scrollToNextGroup() {
+    const elemImg = document.querySelector('ul.gallery > li.gallery-item');
+    if (elemImg) {
+        const rect = elemImg.getBoundingClientRect();
+        const cardHeight = rect.height *2;
+        console.log(cardHeight + rect.y*(-1));
+        window.scrollBy({ top:(cardHeight + rect.y*(-1)), behavior: 'smooth' });
+    }
 }
 
 
