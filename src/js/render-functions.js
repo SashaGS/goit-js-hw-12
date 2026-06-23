@@ -2,7 +2,7 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-let  gallery = new SimpleLightbox('.gallery a',{
+let  gallery = new SimpleLightbox('ul.gallery a',{
         captions: true,              // вмикає підписи
         captionsData: 'alt',         // джерело підпису — атрибут alt
         captionPosition: 'bottom',   // позиція підпису знизу
