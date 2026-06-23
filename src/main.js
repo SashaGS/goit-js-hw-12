@@ -22,7 +22,7 @@ const form = document.querySelector('.form');
         e.preventDefault(); 
         hideLoadMoreButton();
         clearGallery(elemGallary);
-        showLoader();
+        // showLoader();
        
         const formData = new FormData(e.target);
         searchText = formData.get('search-text').trim();
@@ -38,8 +38,8 @@ const form = document.querySelector('.form');
             maxWidth:500});    
             return;                    
         }
+        showLoader();
         await showGallary(searchText);
-        // elemImg = document.querySelector('ul.gallery > li.gallery-item');
         e.target.reset();
     });
 
@@ -52,7 +52,7 @@ btnShowmore.addEventListener('click', async (e) => {
         showLoader();
 
         await showGallary(searchText);
-        scrollToNextGroup();
+        await scrollToNextGroup();
     });
 
 

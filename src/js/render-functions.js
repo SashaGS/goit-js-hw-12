@@ -22,8 +22,9 @@ export function scrollToNextGroup() {
     const elemImg = document.querySelector('ul.gallery > li.gallery-item');
     if (elemImg) {
         const rect = elemImg.getBoundingClientRect();
-        const cardHeight = rect.height;
-        window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
+        const cardHeight = rect.height *2;
+        console.log(cardHeight + rect.y*(-1));
+        window.scrollBy({ top:(cardHeight + rect.y*(-1)), behavior: 'smooth' });
     }
 }
 
