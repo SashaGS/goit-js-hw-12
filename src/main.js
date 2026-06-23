@@ -9,7 +9,6 @@ import "izitoast/dist/css/iziToast.min.css";
 const elemGallary = document.querySelector('ul.gallery');
 
 
-// let searchTextOld;
 let searchText;
 let page ;
 let totalPages;
@@ -22,7 +21,6 @@ const form = document.querySelector('.form');
         e.preventDefault(); 
         hideLoadMoreButton();
         clearGallery(elemGallary);
-        // showLoader();
        
         const formData = new FormData(e.target);
         searchText = formData.get('search-text').trim();
@@ -117,7 +115,6 @@ function scrollToNextGroup() {
     if (elemImg) {
         const rect = elemImg.getBoundingClientRect();
         const cardHeight = rect.height;
-        // console.log(cardHeight + rect.y*(-1));
         window.scrollBy({ top: (cardHeight * 2), behavior: 'smooth' });
     }
 }
