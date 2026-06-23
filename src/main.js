@@ -11,7 +11,7 @@ const elemGallary = document.querySelector('ul.gallery');
 
 // let searchTextOld;
 let searchText;
-let page =1;
+let page ;
 let totalPages;
 const PER_PAGES = 15;
 
@@ -26,7 +26,8 @@ const form = document.querySelector('.form');
        
         const formData = new FormData(e.target);
         searchText = formData.get('search-text').trim();
-        // page = 1;
+        page = 1;
+        totalPages = 0;
 
         if (searchText.length === 0) {
             iziToast.show({
@@ -115,9 +116,9 @@ function scrollToNextGroup() {
     const elemImg = document.querySelector('ul.gallery > li.gallery-item');
     if (elemImg) {
         const rect = elemImg.getBoundingClientRect();
-        const cardHeight = rect.height *2;
-        console.log(cardHeight + rect.y*(-1));
-        window.scrollBy({ top:(cardHeight + rect.y*(-1)), behavior: 'smooth' });
+        const cardHeight = rect.height;
+        // console.log(cardHeight + rect.y*(-1));
+        window.scrollBy({ top: (cardHeight * 2), behavior: 'smooth' });
     }
 }
 
